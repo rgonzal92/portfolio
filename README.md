@@ -7,7 +7,7 @@ Personal software engineer portfolio. Angular 22, PrimeNG 22, Tailwind CSS 4, ho
 Everything on the site comes from `src/app/core/content.ts`. Put images and your resume PDF in `public/`:
 
 - your resume PDF: served by the "Download PDF" button (path in `PROFILE.resumePdf`)
-- `public/portrait.jpg`: set `PROFILE.portrait = '/portrait.jpg'`
+- `public/portrait.webp`: your photo (`PROFILE.portrait`); keep it 4:5 and about 800px wide
 - `public/projects/<name>.png`: set `cover: '/projects/<name>.png'` on a project
 
 Update the `<title>` and meta description in `src/index.html` too.

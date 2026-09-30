@@ -58,7 +58,7 @@ export const PROFILE = {
     'Previously Software Engineer at General Motors',
     'B.S. Computer Science, UTSA',
   ],
-  portrait: '', // e.g. '/portrait.jpg'
+  portrait: '/portrait.webp',
   resumePdf: '/Richard-Gonzalez-Resume.pdf',
 };
 
