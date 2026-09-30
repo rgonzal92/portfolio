@@ -1,0 +1,110 @@
+<div class="wrap pt-32 pb-16 print:max-w-none print:p-0">
+  <header class="flex flex-wrap items-end justify-between gap-6">
+    <div>
+      <p class="eyebrow print:hidden">Resume</p>
+      <h1 class="mt-4 text-5xl md:text-6xl print:mt-0 print:text-4xl">
+        <span
+          class="after:ml-[0.11em] after:inline-block after:h-[0.13em] after:w-[0.7em] after:bg-primary-500 after:[print-color-adjust:exact]"
+          >{{ profile.name }}</span
+        >
+      </h1>
+      <p class="mt-3 text-lg text-muted-color">{{ profile.title }} · {{ profile.location }}</p>
+    </div>
+    <a pButton rounded [href]="profile.resumePdf" download class="print:hidden">
+      <svg data-p-icon="download"></svg> Download PDF
+    </a>
+  </header>
+  <p-divider class="mt-8 mb-0" />
+
+  <div
+    class="mt-12 grid gap-12 md:grid-cols-[16rem_1fr] print:mt-6 print:grid-cols-[14rem_1fr] print:gap-8"
+  >
+    <aside class="flex flex-col gap-10 self-start md:sticky md:top-28 print:static print:gap-6">
+      <section>
+        <h2 class="eyebrow">Contact</h2>
+        <ul class="mt-4 flex flex-col gap-2 text-sm">
+          @for (l of links; track l.url) {
+            @let external = l.url.startsWith('http');
+            <li>
+              <a
+                [href]="l.url"
+                [attr.target]="external ? '_blank' : null"
+                [attr.rel]="external ? 'noopener' : null"
+                class="flex items-center gap-2 break-all transition-colors hover:text-primary"
+              >
+                <app-social-icon [name]="l.icon" [size]="14" />
+                {{ l.text }}
+                @if (external) {
+                  <span class="sr-only">(opens in a new tab)</span>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      </section>
+
+      @for (group of skills; track group.label) {
+        <section class="break-inside-avoid">
+          <h2 class="eyebrow">{{ group.label }}</h2>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            @for (item of group.items; track item) {
+              <li><p-chip [label]="item" /></li>
+            }
+          </ul>
+        </section>
+      }
+
+      <section class="break-inside-avoid">
+        <h2 class="eyebrow">Education</h2>
+        @for (e of resume.education; track e.school) {
+          <div class="mt-4 text-sm">
+            <p class="font-medium">{{ e.degree }}</p>
+            <p class="text-muted-color">{{ e.school }} · {{ e.year }}</p>
+          </div>
+        }
+      </section>
+    </aside>
+
+    <div class="flex flex-col gap-12 print:gap-6">
+      <section>
+        <h2 class="eyebrow">Summary</h2>
+        <p class="mt-4 max-w-[65ch] text-lg leading-relaxed print:text-base">
+          {{ resume.summary }}
+        </p>
+      </section>
+
+      <section>
+        <h2 class="eyebrow">Experience</h2>
+        <ol class="mt-4">
+          @for (job of resume.experience; track job.company + job.start) {
+            <li class="break-inside-avoid border-t border-surface py-6 print:py-4">
+              <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <h3 class="text-xl">
+                  {{ job.role }}
+                  <span class="font-normal text-muted-color">· {{ job.company }}</span>
+                </h3>
+                <p class="eyebrow">{{ job.start }} – {{ job.end }}</p>
+              </div>
+              <p class="mt-1 text-sm text-muted-color">{{ job.location }}</p>
+              @if (job.summary) {
+                <p class="mt-4 max-w-[70ch] leading-relaxed">{{ job.summary }}</p>
+              }
+              <ul
+                class="mt-4 flex list-disc flex-col gap-2 pl-5 text-muted-color marker:text-primary"
+              >
+                @for (h of job.highlights; track h) {
+                  <li>{{ h }}</li>
+                }
+              </ul>
+              <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tech stack">
+                @for (t of job.stack; track t) {
+                  <li><p-chip [label]="t" /></li>
+                }
+              </ul>
+            </li>
+          }
+        </ol>
+      </section>
+    </div>
+  </div>
+</div>

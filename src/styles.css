@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+
+@custom-variant dark (&:where(.p-dark, .p-dark *));
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  /* Hover color fades on links (Tailwind's default is 150ms). */
+  --default-transition-duration: 300ms;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  @apply bg-surface-50 text-color font-sans antialiased dark:bg-surface-950;
+}
+
+/* Headings follow the logo: Inter ExtraBold with tight tracking (Inter switches to its Display cut at large sizes). */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    @apply font-extrabold tracking-tight;
+  }
+
+  /* Visible keyboard focus for plain links and buttons; PrimeNG components use their own ring. */
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+::selection {
+  @apply bg-primary text-primary-contrast;
+}
+
+/* Page-width container with responsive side padding. */
+@utility wrap {
+  @apply mx-auto w-full max-w-[1600px] px-5 md:px-10 xl:px-16;
+}
+
+/* Uppercase, widely tracked label (like the logo's subtitle) used for eyebrows and meta. */
+@utility eyebrow {
+  @apply text-xs font-medium tracking-[0.2em] uppercase text-muted-color;
+}
+
+/* Faint 48px grid with a brand-blue glow, behind the hero and on image placeholders. */
+@utility grid-bg {
+  --grid-line: color-mix(in srgb, currentColor 7%, transparent);
+  background-image:
+    radial-gradient(
+      ellipse 55% 65% at 18% 45%,
+      color-mix(in srgb, var(--p-primary-500) 22%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:
+    auto,
+    48px 48px,
+    48px 48px;
+}
+
+/* No scroll-in animation when the viewer prefers reduced motion (unlayered, so it beats the utility). */
+@media (prefers-reduced-motion: reduce) {
+  .p-animateonscroll {
+    animation: none;
+  }
+}
+
+/* pAnimateOnScroll hides elements with inline opacity until they scroll into view; always print them. */
+@media print {
+  [style*='opacity: 0'] {
+    opacity: 1 !important;
+  }
+}
+
+@page {
+  margin: 0.5in;
+}

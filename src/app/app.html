@@ -1,0 +1,13 @@
+<a
+  href="#main"
+  class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[1100] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-contrast"
+  (click)="skipToContent($event, main)"
+  >Skip to main content</a
+>
+<app-nav />
+<main #main id="main" tabindex="-1" class="outline-none">
+  <router-outlet />
+</main>
+<app-footer />
+<app-contact-drawer />
+<p-scrolltop buttonAriaLabel="Back to top" behavior="auto" styleClass="print:hidden" />

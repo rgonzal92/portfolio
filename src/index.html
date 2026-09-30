@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Richard Gonzalez · Software Engineer</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Full-stack engineer with 3+ years at General Motors, shipping Java/Spring Boot, PostgreSQL, and Angular features to production."
+    />
+    <meta property="og:title" content="Richard Gonzalez · Software Engineer" />
+    <meta
+      property="og:description"
+      content="Full-stack engineer with 3+ years at General Motors, taking features from stakeholder requirements to production across Java/Spring Boot, PostgreSQL, and Angular."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap"
+    />
+    <!-- Apply the saved theme before Angular boots so there is no flash. Dark is the default. -->
+    <script>
+      try {
+        document.documentElement.classList.toggle(
+          'p-dark',
+          localStorage.getItem('theme') !== 'light',
+        );
+      } catch {
+        document.documentElement.classList.add('p-dark');
+      }
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

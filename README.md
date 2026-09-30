@@ -1,0 +1,46 @@
+# Portfolio
+
+Personal software engineer portfolio. Angular 22, PrimeNG 22, Tailwind CSS 4, hosted on Cloudflare Workers.
+
+## Edit your content
+
+Everything on the site comes from `src/app/core/content.ts`. Put images and your resume PDF in `public/`:
+
+- your resume PDF: served by the "Download PDF" button (path in `PROFILE.resumePdf`)
+- `public/portrait.jpg`: set `PROFILE.portrait = '/portrait.jpg'`
+- `public/projects/<name>.png`: set `cover: '/projects/<name>.png'` on a project
+
+Update the `<title>` and meta description in `src/index.html` too.
+
+## PrimeUI license key
+
+PrimeNG 22 needs a PrimeUI license key. Put it in a `.env` file in the project root (gitignored):
+
+```sh
+PRIMEUI_LICENSE='your-key'
+```
+
+Keep the single quotes. The npm scripts load `.env` if it exists, otherwise they use a `PRIMEUI_LICENSE`
+environment variable (that's how the Cloudflare build gets it). Without a key the site still works but shows an
+"Invalid PrimeUI License" badge.
+
+Use `npm start` / `npm run build` (not bare `ng serve`) so the key is passed in.
+
+## Commands
+
+```bash
+npm start          # dev server at http://localhost:4200
+npm run build      # production build in dist/portfolio/browser
+npm test           # unit tests (Vitest)
+npm run lint       # ESLint, including Angular template accessibility rules
+npm run deploy     # build + deploy to Cloudflare (needs `npx wrangler login` once)
+```
+
+## Deploy on Cloudflare (git-connected)
+
+1. Push this repo to GitHub.
+2. Cloudflare dashboard → Workers & Pages → Create → Import a repository.
+3. Build command `npm run build`, deploy command `npx wrangler deploy`.
+4. Settings → Build → Variables and secrets → add `PRIMEUI_LICENSE`.
+
+`wrangler.jsonc` serves the build as static assets with single-page-app fallback, so `/resume` works on refresh.
