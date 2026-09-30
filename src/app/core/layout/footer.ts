@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ExternalLink } from '../../shared/external-link';
 import { SocialIcon } from '../../shared/social-icon';
 import { PROFILE, SOCIALS } from '../content';
 
 @Component({
   selector: 'app-footer',
-  imports: [ButtonModule, SocialIcon],
+  imports: [ButtonModule, ExternalLink, SocialIcon],
   template: `
     <footer class="mt-20 border-t border-surface print:hidden">
       <div class="wrap flex flex-wrap items-center justify-between gap-6 py-10">
@@ -13,18 +14,16 @@ import { PROFILE, SOCIALS } from '../content';
 
         <ul class="flex items-center gap-1">
           @for (s of socials; track s.url) {
-            @let external = s.url.startsWith('http');
             <li>
               <a
                 pButton
+                appExternalLink
                 text
                 rounded
                 iconOnly
                 severity="secondary"
                 [href]="s.url"
-                [attr.target]="external ? '_blank' : null"
-                [attr.rel]="external ? 'noopener' : null"
-                [attr.aria-label]="external ? s.label + ' (opens in a new tab)' : s.label"
+                [attr.aria-label]="s.label"
               >
                 <app-social-icon [name]="s.icon" />
               </a>

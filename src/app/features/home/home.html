@@ -14,10 +14,7 @@
       [attr.aria-label]="profile.name + ', ' + profile.title"
     >
       <span class="block">{{ firstName }}</span>
-      <span
-        class="block after:ml-[0.11em] after:inline-block after:h-[0.13em] after:w-[0.7em] after:bg-primary-500"
-        >{{ lastName }}</span
-      >
+      <span class="brand-bar block">{{ lastName }}</span>
       <span
         class="mt-[0.75em] block text-[0.21em] leading-none font-normal tracking-[0.56em] uppercase"
         >{{ profile.title }}</span

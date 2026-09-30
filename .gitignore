@@ -46,5 +46,6 @@ Thumbs.db
 # Cloudflare Wrangler local state
 /.wrangler
 
-# Local secrets (PRIMEUI_LICENSE)
-.env
+# Local secrets (PRIMEUI_LICENSE), including variants like .env.local
+.env*
+!.env.example

@@ -10,7 +10,25 @@
 }
 
 html {
+  /* Page colors before PrimeNG injects its theme variables at startup, so first-time visitors (dark by
+     default) don't see a white flash. Same values as SURFACE 50 / 950 in core/theme-preset.ts. */
+  background-color: #fafcfe;
+  color-scheme: light;
+  /* Keeps focused elements clear of the fixed header (router anchor jumps use ViewportScroller's offset). */
   scroll-padding-top: 5rem;
+  /* Reserve the scrollbar's space so the layout and fixed header don't shift when a drawer locks scrolling. */
+  scrollbar-gutter: stable;
+}
+
+html.p-dark {
+  background-color: #121a24;
+  color-scheme: dark;
+}
+
+/* Lock page scrolling while any drawer or its closing backdrop is on screen. Used instead of PrimeNG's
+   blockScroll, whose lock isn't reference-counted: closing one drawer while opening another unlocked the page. */
+html:has(.p-drawer-mask) {
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -50,6 +68,19 @@ body {
 /* Uppercase, widely tracked label (like the logo's subtitle) used for eyebrows and meta. */
 @utility eyebrow {
   @apply text-xs font-medium tracking-[0.2em] uppercase text-muted-color;
+}
+
+/* Blue underscore bar after the text, as in the logo. Resize with --brand-bar-w / --brand-bar-h. */
+@utility brand-bar {
+  &::after {
+    content: '';
+    display: inline-block;
+    margin-left: 0.11em;
+    width: var(--brand-bar-w, 0.7em);
+    height: var(--brand-bar-h, 0.13em);
+    background-color: var(--p-primary-500);
+    print-color-adjust: exact;
+  }
 }
 
 /* Faint 48px grid with a brand-blue glow, behind the hero and on image placeholders. */

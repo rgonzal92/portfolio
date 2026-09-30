@@ -21,8 +21,8 @@ PRIMEUI_LICENSE='your-key'
 ```
 
 Keep the single quotes. The npm scripts load `.env` if it exists, otherwise they use a `PRIMEUI_LICENSE`
-environment variable (that's how the Cloudflare build gets it). Without a key the site still works but shows an
-"Invalid PrimeUI License" badge.
+environment variable (that's how the Cloudflare build gets it). `npm run build` fails if no key is set, so a
+deploy can't ship the "Invalid PrimeUI License" badge; `npm start` still runs without one and shows the badge.
 
 Use `npm start` / `npm run build` (not bare `ng serve`) so the key is passed in.
 
@@ -40,7 +40,8 @@ npm run deploy     # build + deploy to Cloudflare (needs `npx wrangler login` on
 
 1. Push this repo to GitHub.
 2. Cloudflare dashboard → Workers & Pages → Create → Import a repository.
-3. Build command `npm run build`, deploy command `npx wrangler deploy`.
+3. Build command `npm run build`, deploy command `npx wrangler deploy` (uses the wrangler version pinned in
+   `package.json`).
 4. Settings → Build → Variables and secrets → add `PRIMEUI_LICENSE`.
 
 `wrangler.jsonc` serves the build as static assets with single-page-app fallback, so `/resume` works on refresh.

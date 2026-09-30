@@ -3,10 +3,7 @@
     <div>
       <p class="eyebrow print:hidden">Resume</p>
       <h1 class="mt-4 text-5xl md:text-6xl print:mt-0 print:text-4xl">
-        <span
-          class="after:ml-[0.11em] after:inline-block after:h-[0.13em] after:w-[0.7em] after:bg-primary-500 after:[print-color-adjust:exact]"
-          >{{ profile.name }}</span
-        >
+        <span class="brand-bar">{{ profile.name }}</span>
       </h1>
       <p class="mt-3 text-lg text-muted-color">{{ profile.title }} · {{ profile.location }}</p>
     </div>
@@ -24,19 +21,14 @@
         <h2 class="eyebrow">Contact</h2>
         <ul class="mt-4 flex flex-col gap-2 text-sm">
           @for (l of links; track l.url) {
-            @let external = l.url.startsWith('http');
             <li>
               <a
+                appExternalLink
                 [href]="l.url"
-                [attr.target]="external ? '_blank' : null"
-                [attr.rel]="external ? 'noopener' : null"
                 class="flex items-center gap-2 break-all transition-colors hover:text-primary"
               >
                 <app-social-icon [name]="l.icon" [size]="14" />
                 {{ l.text }}
-                @if (external) {
-                  <span class="sr-only">(opens in a new tab)</span>
-                }
               </a>
             </li>
           }

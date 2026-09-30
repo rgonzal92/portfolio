@@ -6,10 +6,19 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import { Project } from '../../core/content';
+import { ExternalLink } from '../../shared/external-link';
 
 @Component({
   selector: 'app-project-card',
-  imports: [ArrowUpRight, ButtonModule, CardModule, ChipModule, Github, NgOptimizedImage],
+  imports: [
+    ArrowUpRight,
+    ButtonModule,
+    CardModule,
+    ChipModule,
+    ExternalLink,
+    Github,
+    NgOptimizedImage,
+  ],
   host: { class: 'group block' },
   template: `
     @let p = project();
@@ -61,31 +70,29 @@ import { Project } from '../../core/content';
           @if (p.repo) {
             <a
               pButton
+              appExternalLink
               outlined
               rounded
               size="small"
               severity="secondary"
               [href]="p.repo"
-              target="_blank"
-              rel="noopener"
             >
               <svg data-p-icon="github"></svg> Code
-              <span class="sr-only">for {{ p.title }} (opens in a new tab)</span>
+              <span class="sr-only">for {{ p.title }}</span>
             </a>
           }
           @if (p.demo) {
             <a
               pButton
+              appExternalLink
               outlined
               rounded
               size="small"
               severity="secondary"
               [href]="p.demo"
-              target="_blank"
-              rel="noopener"
             >
               Live <svg data-p-icon="arrow-up-right"></svg>
-              <span class="sr-only">site for {{ p.title }} (opens in a new tab)</span>
+              <span class="sr-only">site for {{ p.title }}</span>
             </a>
           }
         </div>

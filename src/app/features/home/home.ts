@@ -40,5 +40,10 @@ export class Home {
   protected readonly featured = PROJECTS[0];
   protected readonly rest = PROJECTS.slice(1);
   protected readonly projectCount = String(PROJECTS.length).padStart(2, '0');
-  protected readonly yearRange = [...new Set([PROJECTS.at(-1)?.year, PROJECTS[0]?.year])].join('–');
+  protected readonly yearRange = yearRange(PROJECTS);
+}
+
+/** "2024–2026" for projects listed newest first, or a single year when they all share one. */
+export function yearRange(projects: { year: string }[]): string {
+  return [...new Set([projects.at(-1)?.year, projects[0]?.year])].join('–');
 }

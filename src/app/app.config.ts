@@ -1,7 +1,12 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular/router';
+import {
+  ApplicationConfig,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
+import { initScrolling } from './core/scrolling';
 import { BrandPreset } from './core/theme-preset';
 
 export const appConfig: ApplicationConfig = {
@@ -10,9 +15,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }),
-      // Clicking "Work" again after scrolling away should scroll back to it.
-      withRouterConfig({ onSameUrlNavigation: 'reload' }),
     ),
+    provideAppInitializer(initScrolling),
     providePrimeNG({
       license: PRIMEUI_LICENSE,
       ripple: true,

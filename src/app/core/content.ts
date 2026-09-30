@@ -4,7 +4,7 @@
 export interface Social {
   label: string;
   url: string;
-  icon: 'github' | 'linkedin' | 'envelope' | 'twitter' | 'discord';
+  icon: 'github' | 'linkedin' | 'envelope';
 }
 
 export interface Project {

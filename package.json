@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "[ -f .env ] && . ./.env; ng serve --define \"PRIMEUI_LICENSE='$PRIMEUI_LICENSE'\"",
-    "build": "[ -f .env ] && . ./.env; ng build --define \"PRIMEUI_LICENSE='$PRIMEUI_LICENSE'\"",
+    "build": "[ -f .env ] && . ./.env; [ -n \"$PRIMEUI_LICENSE\" ] || { echo \"PRIMEUI_LICENSE is not set: add it to .env or the build environment.\" >&2; exit 1; }; ng build --define \"PRIMEUI_LICENSE='$PRIMEUI_LICENSE'\"",
     "watch": "[ -f .env ] && . ./.env; ng build --watch --configuration development --define \"PRIMEUI_LICENSE='$PRIMEUI_LICENSE'\"",
     "test": "ng test",
-    "deploy": "npm run build && npx wrangler deploy",
+    "deploy": "npm run build && wrangler deploy",
     "lint": "ng lint"
   },
   "private": true,
@@ -20,6 +20,7 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "@primeicons/angular": "^8.0.2",
     "@primeuix/themes": "^3.0.1",
     "primeng": "^22.1.2",
     "rxjs": "~7.8.0",
@@ -40,6 +41,10 @@
     "tailwindcss": "^4.1.12",
     "typescript": "~6.0.2",
     "typescript-eslint": "8.69.0",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.0",
+    "wrangler": "^4.144.0"
+  },
+  "allowScripts": {
+    "workerd@1.20260926.1": true
   }
 }

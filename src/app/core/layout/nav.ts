@@ -1,4 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  afterNextRender,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Bars } from '@primeicons/angular/bars';
 import { Moon } from '@primeicons/angular/moon';
@@ -18,8 +26,10 @@ const LINKS = [
 @Component({
   selector: 'app-nav',
   imports: [Bars, ButtonModule, DrawerModule, Moon, RouterLink, Sun],
-  host: { '(window:scroll)': 'updateScrolled()' },
   template: `
+    <!-- 20px strip at the top of the page; the nav counts as scrolled once it leaves the viewport. -->
+    <div #topSentinel class="absolute top-0 h-5 w-px" aria-hidden="true"></div>
+
     <!-- Transparent over the hero at the very top; background and divider appear once scrolled
          (300ms fade in, 150ms fade out so it clears quickly when you return to the top). -->
     <header
@@ -35,7 +45,7 @@ const LINKS = [
           <!-- RG_ mark from the favicon, as text so it stays transparent and follows the theme. -->
           <span
             aria-hidden="true"
-            class="text-lg leading-none font-extrabold tracking-tight after:ml-[0.11em] after:inline-block after:h-[0.1em] after:w-[0.36em] after:bg-primary-500"
+            class="brand-bar text-lg leading-none font-extrabold tracking-tight [--brand-bar-h:0.1em] [--brand-bar-w:0.36em]"
             >RG</span
           >
           <span>{{ name }}</span>
@@ -94,13 +104,7 @@ const LINKS = [
       </div>
     </header>
 
-    <p-drawer
-      [(visible)]="menuOpen"
-      position="top"
-      styleClass="h-auto"
-      [blockScroll]="true"
-      ariaCloseLabel="Close"
-    >
+    <p-drawer [(visible)]="menuOpen" position="top" styleClass="h-auto" ariaCloseLabel="Close">
       <nav class="flex flex-col" aria-label="Mobile">
         @for (l of links; track l.label) {
           <a
@@ -125,9 +129,18 @@ export class Nav {
   protected readonly scrolled = signal(false);
   protected readonly name = PROFILE.name;
   protected readonly links = LINKS;
+  private readonly topSentinel = viewChild.required<ElementRef<HTMLElement>>('topSentinel');
 
-  // Hide within 20px of the top so it clears while smooth scrolling is still easing in.
-  protected updateScrolled(): void {
-    this.scrolled.set(window.scrollY > 20);
+  constructor() {
+    // Watching a 20px strip instead of every scroll event: the signal only changes when crossing the
+    // threshold, and the nav clears while smooth scrolling is still easing into the top.
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      const observer = new IntersectionObserver(([entry]) =>
+        this.scrolled.set(!entry.isIntersecting),
+      );
+      observer.observe(this.topSentinel().nativeElement);
+      destroyRef.onDestroy(() => observer.disconnect());
+    });
   }
 }

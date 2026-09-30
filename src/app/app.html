@@ -4,6 +4,8 @@
   (click)="skipToContent($event, main)"
   >Skip to main content</a
 >
+<!-- Referenced by aria-describedby on every external link (shared/external-link.ts). -->
+<span id="new-tab-note" hidden>Opens in a new tab</span>
 <app-nav />
 <main #main id="main" tabindex="-1" class="outline-none">
   <router-outlet />
