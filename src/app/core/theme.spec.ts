@@ -1,5 +1,6 @@
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Theme } from './theme';
+import { Theme, provideTheme } from './theme';
 
 describe('Theme', () => {
   const root = document.documentElement;
@@ -24,8 +25,9 @@ describe('Theme', () => {
     expect(localStorage.getItem('theme')).toBe('dark');
   });
 
-  it('prints in light mode and restores dark mode afterwards', () => {
-    TestBed.inject(Theme);
+  it('prints in light mode and restores dark mode afterwards, from app startup', () => {
+    TestBed.configureTestingModule({ providers: [provideTheme()] });
+    TestBed.inject(ApplicationRef); // starts the app without anything injecting Theme
 
     window.dispatchEvent(new Event('beforeprint'));
     expect(root.classList.contains('p-dark')).toBe(false);
