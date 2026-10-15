@@ -36,12 +36,14 @@ npm run lint       # ESLint, including Angular template accessibility rules
 npm run deploy     # build + deploy to Cloudflare (needs `npx wrangler login` once)
 ```
 
-## Deploy on Cloudflare (git-connected)
+## Deploy (GitHub Actions)
 
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → Workers & Pages → Create → Import a repository.
-3. Build command `npm run build`, deploy command `npx wrangler deploy` (uses the wrangler version pinned in
-   `package.json`).
-4. Settings → Build → Variables and secrets → add `PRIMEUI_LICENSE`.
+`.github/workflows/deploy.yml` lints, tests, and builds every push and pull request, then deploys `main` to
+Cloudflare Workers with `wrangler deploy`. It needs three repository secrets:
+
+- `PRIMEUI_LICENSE`: the PrimeUI license key
+- `CLOUDFLARE_API_TOKEN`: an API token from the "Edit Cloudflare Workers" template, scoped to your account and
+  the `rgonz.dev` zone
+- `CLOUDFLARE_ACCOUNT_ID`: your Cloudflare account ID
 
 `wrangler.jsonc` serves the build as static assets with single-page-app fallback, so `/resume` works on refresh.
