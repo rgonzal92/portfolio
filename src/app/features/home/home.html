@@ -39,7 +39,7 @@
   <p-divider class="m-0" />
   <div class="mt-6 flex flex-wrap justify-between gap-6">
     <p class="eyebrow">Selected projects</p>
-    <p class="eyebrow">{{ projectCount }} projects · {{ projectYears }}</p>
+    <p class="eyebrow">{{ projectCount }} · {{ projectYears }}</p>
   </div>
   <h2
     pAnimateOnScroll
@@ -60,21 +60,23 @@
     [project]="featured"
     [featured]="true"
   />
-  <div class="mt-14 grid gap-14 md:grid-cols-2 md:gap-10">
-    @for (p of rest; track p.title; let last = $last, count = $count) {
-      <!-- A last card that would sit alone in its row spans the full width instead. -->
-      @let wide = last && count % 2 === 1;
-      <app-project-card
-        pAnimateOnScroll
-        [enterClass]="fadeIn"
-        threshold="0.1"
-        once
-        [class]="wide ? 'md:col-span-2' : ''"
-        [project]="p"
-        [featured]="wide"
-      />
-    }
-  </div>
+  @if (rest.length) {
+    <div class="mt-14 grid gap-14 md:grid-cols-2 md:gap-10">
+      @for (p of rest; track p.title; let last = $last, count = $count) {
+        <!-- A last card that would sit alone in its row spans the full width instead. -->
+        @let wide = last && count % 2 === 1;
+        <app-project-card
+          pAnimateOnScroll
+          [enterClass]="fadeIn"
+          threshold="0.1"
+          once
+          [class]="wide ? 'md:col-span-2' : ''"
+          [project]="p"
+          [featured]="wide"
+        />
+      }
+    </div>
+  }
 </section>
 
 <!-- About -->

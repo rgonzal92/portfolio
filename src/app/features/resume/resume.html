@@ -60,7 +60,7 @@
     <div class="flex flex-col gap-12 print:gap-6">
       <section>
         <h2 class="eyebrow">Summary</h2>
-        <p class="mt-4 max-w-[65ch] text-lg leading-relaxed print:text-base">
+        <p class="mt-4 text-lg leading-relaxed print:text-base">
           {{ resume.summary }}
         </p>
       </section>
@@ -79,7 +79,7 @@
               </div>
               <p class="mt-1 text-sm text-muted-color">{{ job.location }}</p>
               @if (job.summary) {
-                <p class="mt-4 max-w-[70ch] leading-relaxed">{{ job.summary }}</p>
+                <p class="mt-4 leading-relaxed">{{ job.summary }}</p>
               }
               <ul
                 class="mt-4 flex list-disc flex-col gap-2 pl-5 text-muted-color marker:text-primary"

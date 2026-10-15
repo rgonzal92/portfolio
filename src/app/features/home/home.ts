@@ -46,6 +46,7 @@ export class Home {
   protected readonly skills = SKILLS;
   protected readonly featured = FEATURED_PROJECT;
   protected readonly rest = OTHER_PROJECTS;
-  protected readonly projectCount = String(PROJECT_COUNT).padStart(2, '0');
+  protected readonly projectCount =
+    String(PROJECT_COUNT).padStart(2, '0') + (PROJECT_COUNT === 1 ? ' project' : ' projects');
   protected readonly projectYears = PROJECT_YEARS;
 }
