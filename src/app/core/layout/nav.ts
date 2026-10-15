@@ -41,7 +41,10 @@ const LINKS = [
       "
     >
       <div class="wrap flex h-header items-center justify-between gap-3">
-        <a routerLink="/" class="flex items-center gap-3 text-sm font-extrabold tracking-tight">
+        <a
+          routerLink="/"
+          class="flex items-center gap-3 py-3 text-sm font-extrabold tracking-tight"
+        >
           <!-- RG_ mark from the favicon, as text so it stays transparent and follows the theme. -->
           <span
             aria-hidden="true"
@@ -56,7 +59,7 @@ const LINKS = [
             <a
               [routerLink]="l.path"
               [fragment]="l.fragment"
-              class="text-sm text-muted-color transition-colors hover:text-color"
+              class="py-3 text-sm text-muted-color transition-colors hover:text-color"
               >{{ l.label }}</a
             >
           }
@@ -110,8 +113,10 @@ const LINKS = [
       position="top"
       styleClass="h-auto"
       ariaCloseLabel="Close"
+      [pt]="{ root: { role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Menu' } }"
+      (onShow)="mobileNav.querySelector('a')?.focus()"
     >
-      <nav class="flex flex-col" aria-label="Mobile">
+      <nav #mobileNav class="flex flex-col" aria-label="Mobile">
         @for (l of links; track l.label) {
           <a
             [routerLink]="l.path"

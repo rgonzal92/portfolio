@@ -16,12 +16,15 @@
       <span class="block">{{ firstName }}</span>
       <span class="brand-bar block">{{ lastName }}</span>
       <span
-        class="mt-[0.75em] block text-[0.21em] leading-none font-normal tracking-[0.56em] uppercase"
+        class="mt-[0.75em] block text-[max(0.75rem,0.21em)] leading-none font-normal tracking-[0.56em] uppercase"
         >{{ profile.title }}</span
       >
     </h1>
 
-    <p class="mt-6 max-w-[620px] text-lg text-muted-color md:text-xl">{{ profile.lede }}</p>
+    <!-- One step darker than muted in light mode: muted dips under 4.5:1 over the hero gradient. -->
+    <p class="mt-6 max-w-[620px] text-lg text-surface-600 md:text-xl dark:text-muted-color">
+      {{ profile.lede }}
+    </p>
 
     <div class="mt-9 flex flex-wrap items-center gap-3">
       <a pButton rounded routerLink="/" fragment="projects">

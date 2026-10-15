@@ -16,6 +16,8 @@ import { Drawers } from './drawers';
       position="right"
       styleClass="w-full sm:w-[30rem]"
       ariaCloseLabel="Close"
+      [pt]="{ root: { role: 'dialog', 'aria-modal': 'true', 'aria-label': 'Get in touch' } }"
+      (onShow)="contactBody.querySelector('a')?.focus()"
     >
       <ng-template #header>
         <!-- Blue underscore bar, same proportions as the logo. -->
@@ -24,7 +26,7 @@ import { Drawers } from './drawers';
         </h2>
       </ng-template>
 
-      <div class="flex h-full flex-col gap-10">
+      <div #contactBody class="flex h-full flex-col gap-10">
         <p class="text-muted-color">Have a role, a project, or a question? My inbox is open.</p>
 
         <a

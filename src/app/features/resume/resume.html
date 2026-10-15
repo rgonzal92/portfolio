@@ -19,13 +19,13 @@
     <aside class="flex flex-col gap-10 self-start md:sticky md:top-28 print:static print:gap-6">
       <section>
         <h2 class="eyebrow">Contact</h2>
-        <ul class="mt-4 flex flex-col gap-2 text-sm">
+        <ul class="mt-1 flex flex-col text-sm print:mt-4 print:gap-2">
           @for (l of links; track l.url) {
             <li>
               <a
                 appExternalLink
                 [href]="l.url"
-                class="flex items-center gap-2 break-all transition-colors hover:text-primary"
+                class="flex items-center gap-2 py-3 break-all transition-colors hover:text-primary print:py-0"
               >
                 <app-social-icon [name]="l.icon" [size]="14" />
                 {{ l.text }}

@@ -36,4 +36,40 @@ describe('Drawers', () => {
     await router.navigateByUrl('/#projects');
     expect(drawers.open()).toBeNull();
   });
+
+  describe('focus', () => {
+    let opener: HTMLButtonElement;
+    let inside: HTMLButtonElement;
+
+    beforeEach(() => {
+      document.body.innerHTML = '<button id="opener"></button><button id="inside"></button>';
+      opener = document.querySelector('#opener')!;
+      inside = document.querySelector('#inside')!;
+    });
+
+    it('goes back to what opened the drawer when it closes', () => {
+      opener.focus();
+      drawers.show('contact');
+      inside.focus();
+      drawers.close();
+      expect(document.activeElement).toBe(opener);
+    });
+
+    it('goes back to the first opener after switching drawers', () => {
+      opener.focus();
+      drawers.show('menu');
+      inside.focus();
+      drawers.show('contact');
+      drawers.close();
+      expect(document.activeElement).toBe(opener);
+    });
+
+    it('stays put when a navigation closes the drawer', async () => {
+      opener.focus();
+      drawers.show('menu');
+      inside.focus();
+      await router.navigateByUrl('/resume');
+      expect(document.activeElement).toBe(inside);
+    });
+  });
 });
