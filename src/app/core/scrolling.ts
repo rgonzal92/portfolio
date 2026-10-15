@@ -1,19 +1,43 @@
-import { ViewportScroller } from '@angular/common';
-import { inject } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-
-/** Space above anchor targets for the fixed 72px header. */
-export const HEADER_OFFSET = 80;
+import { DOCUMENT, ViewportScroller } from '@angular/common';
+import {
+  EnvironmentProviders,
+  inject,
+  makeEnvironmentProviders,
+  provideAppInitializer,
+} from '@angular/core';
+import {
+  NavigationEnd,
+  NavigationStart,
+  Router,
+  Routes,
+  provideRouter,
+  withInMemoryScrolling,
+} from '@angular/router';
 
 /**
- * App-wide scroll behavior, run once at startup:
- * - router anchor jumps land below the fixed header (CSS scroll-padding doesn't apply to them);
+ * The router with the site's scroll behavior:
+ * - router anchor jumps land below the fixed header, using the page's CSS scroll-padding-top
+ *   (CSS scroll-padding doesn't apply to them on its own);
  * - page changes jump to the top instantly. The global smooth scrolling is meant for in-page anchors,
- *   and without this the router would smooth-scroll up from the previous page's position.
- *   Back/forward is left alone so the router can restore the previous position.
+ *   and without this the router would smooth-scroll up from the previous page's position;
+ * - back/forward restores the previous position.
  */
-export function initScrolling(): void {
-  inject(ViewportScroller).setOffset([0, HEADER_OFFSET]);
+export function provideRouterWithScrolling(routes: Routes): EnvironmentProviders {
+  return makeEnvironmentProviders([
+    provideRouter(
+      routes,
+      withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }),
+    ),
+    provideAppInitializer(initScrolling),
+  ]);
+}
+
+function initScrolling(): void {
+  const root = inject(DOCUMENT).documentElement;
+  inject(ViewportScroller).setOffset(() => [
+    0,
+    parseFloat(getComputedStyle(root).scrollPaddingTop) || 0,
+  ]);
 
   const router = inject(Router);
   let backOrForward = false;

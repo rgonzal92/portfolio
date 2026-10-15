@@ -1,22 +1,13 @@
-import {
-  ApplicationConfig,
-  provideAppInitializer,
-  provideBrowserGlobalErrorListeners,
-} from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
-import { initScrolling } from './core/scrolling';
+import { provideRouterWithScrolling } from './core/scrolling';
 import { BrandPreset } from './core/theme-preset';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideRouter(
-      routes,
-      withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' }),
-    ),
-    provideAppInitializer(initScrolling),
+    provideRouterWithScrolling(routes),
     providePrimeNG({
       license: PRIMEUI_LICENSE,
       ripple: true,

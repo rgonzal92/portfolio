@@ -7,6 +7,8 @@
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   /* Hover color fades on links (Tailwind's default is 150ms). */
   --default-transition-duration: 300ms;
+  /* Height of the fixed header (h-header). */
+  --spacing-header: 4.5rem;
 }
 
 html {
@@ -14,8 +16,9 @@ html {
      default) don't see a white flash. Same values as SURFACE 50 / 950 in core/theme-preset.ts. */
   background-color: #fafcfe;
   color-scheme: light;
-  /* Keeps focused elements clear of the fixed header (router anchor jumps use ViewportScroller's offset). */
-  scroll-padding-top: 5rem;
+  /* Keeps anchor targets and focused elements clear of the fixed header. Router anchor jumps read it too
+     (core/scrolling.ts). */
+  scroll-padding-top: calc(var(--spacing-header) + 0.5rem);
   /* Reserve the scrollbar's space so the layout and fixed header don't shift when a drawer locks scrolling. */
   scrollbar-gutter: stable;
 }

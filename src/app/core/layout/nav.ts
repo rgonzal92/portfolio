@@ -40,7 +40,7 @@ const LINKS = [
           : 'border-transparent duration-150'
       "
     >
-      <div class="wrap flex h-18 items-center justify-between gap-3">
+      <div class="wrap flex h-header items-center justify-between gap-3">
         <a routerLink="/" class="flex items-center gap-3 text-sm font-extrabold tracking-tight">
           <!-- RG_ mark from the favicon, as text so it stays transparent and follows the theme. -->
           <span
