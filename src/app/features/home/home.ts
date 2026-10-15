@@ -8,7 +8,7 @@ import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { TagModule } from 'primeng/tag';
 import { PROFILE, PROJECTS, SKILLS } from '../../core/content';
-import { Contact } from '../../core/layout/contact';
+import { Drawers } from '../../core/layout/drawers';
 import { ProjectCard } from './project-card';
 
 @Component({
@@ -27,7 +27,7 @@ import { ProjectCard } from './project-card';
   templateUrl: './home.html',
 })
 export class Home {
-  protected readonly contact = inject(Contact);
+  protected readonly drawers = inject(Drawers);
   // Enter animation for pAnimateOnScroll: fade up 24px over 700ms (disabled for reduced motion in styles.css).
   protected readonly fadeIn =
     'animate-enter fade-in-0 slide-in-from-b-6 animate-duration-700 animate-ease-out';

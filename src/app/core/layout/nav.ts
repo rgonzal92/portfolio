@@ -15,7 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { PROFILE } from '../content';
 import { Theme } from '../theme';
-import { Contact } from './contact';
+import { Drawers } from './drawers';
 
 const LINKS = [
   { label: 'Projects', path: '/', fragment: 'projects' },
@@ -83,7 +83,7 @@ const LINKS = [
             rounded
             size="small"
             class="hidden md:inline-flex"
-            (click)="contact.open.set(true)"
+            (click)="drawers.show('contact')"
           >
             Get in touch
           </button>
@@ -95,8 +95,8 @@ const LINKS = [
             severity="secondary"
             class="md:hidden"
             aria-label="Open menu"
-            [attr.aria-expanded]="menuOpen()"
-            (click)="menuOpen.set(true)"
+            [attr.aria-expanded]="drawers.open() === 'menu'"
+            (click)="drawers.show('menu')"
           >
             <svg data-p-icon="bars"></svg>
           </button>
@@ -104,28 +104,30 @@ const LINKS = [
       </div>
     </header>
 
-    <p-drawer [(visible)]="menuOpen" position="top" styleClass="h-auto" ariaCloseLabel="Close">
+    <p-drawer
+      [visible]="drawers.open() === 'menu'"
+      (visibleChange)="drawers.close()"
+      position="top"
+      styleClass="h-auto"
+      ariaCloseLabel="Close"
+    >
       <nav class="flex flex-col" aria-label="Mobile">
         @for (l of links; track l.label) {
           <a
             [routerLink]="l.path"
             [fragment]="l.fragment"
-            (click)="menuOpen.set(false)"
             class="border-t border-surface py-3 text-3xl font-extrabold tracking-tight"
             >{{ l.label }}</a
           >
         }
       </nav>
-      <button pButton rounded class="mt-6" (click)="menuOpen.set(false); contact.open.set(true)">
-        Get in touch
-      </button>
+      <button pButton rounded class="mt-6" (click)="drawers.show('contact')">Get in touch</button>
     </p-drawer>
   `,
 })
 export class Nav {
   protected readonly theme = inject(Theme);
-  protected readonly contact = inject(Contact);
-  protected readonly menuOpen = signal(false);
+  protected readonly drawers = inject(Drawers);
   protected readonly scrolled = signal(false);
   protected readonly name = PROFILE.name;
   protected readonly links = LINKS;

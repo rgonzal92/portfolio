@@ -4,14 +4,15 @@ import { DrawerModule } from 'primeng/drawer';
 import { ExternalLink } from '../../shared/external-link';
 import { SocialIcon } from '../../shared/social-icon';
 import { PROFILE, SOCIALS } from '../content';
-import { Contact } from './contact';
+import { Drawers } from './drawers';
 
 @Component({
   selector: 'app-contact-drawer',
   imports: [DrawerModule, ExternalLink, RouterLink, SocialIcon],
   template: `
     <p-drawer
-      [(visible)]="contact.open"
+      [visible]="drawers.open() === 'contact'"
+      (visibleChange)="drawers.close()"
       position="right"
       styleClass="w-full sm:w-[30rem]"
       ariaCloseLabel="Close"
@@ -48,7 +49,6 @@ import { Contact } from './contact';
           <li class="border-b border-surface">
             <a
               routerLink="/resume"
-              (click)="contact.open.set(false)"
               class="flex items-center gap-3 py-4 transition-colors hover:text-primary"
               >Resume</a
             >
@@ -61,7 +61,7 @@ import { Contact } from './contact';
   `,
 })
 export class ContactDrawer {
-  protected readonly contact = inject(Contact);
+  protected readonly drawers = inject(Drawers);
   protected readonly profile = PROFILE;
   protected readonly socials = SOCIALS;
 }
