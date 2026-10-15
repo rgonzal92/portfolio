@@ -14,6 +14,8 @@ export interface Project {
   summary: string;
   stack: string[];
   cover?: string;
+  // Shown instead of cover in the dark theme.
+  coverDark?: string;
   repo?: string;
   demo?: string;
 }
@@ -130,6 +132,8 @@ export const FEATURED_PROJECT: Project = {
   summary:
     'Solo-built an AWS-hosted catalog management platform with a 48,000-cell autosaving grid, rule validation, approvals, versioning, and three-way merge, cutting the largest save from 517 ms to 57 ms. Spring AI drafts rules, analyzes changes with tool calling, and searches documents with pgvector RAG behind Java-side output validation and an atomic $1/day spending limit; Terraform and GitHub Actions deploy it across EC2, CloudFront, S3, Cognito, SQS, and ECR with keyless OIDC and health-check rollback.',
   stack: ['Java', 'Spring Boot', 'Spring AI', 'Angular', 'PostgreSQL', 'Redis', 'AWS', 'Terraform'],
+  cover: '/projects/vehicle-catalog.webp',
+  coverDark: '/projects/vehicle-catalog-dark.webp',
   repo: 'https://github.com/rgonzal92/vehicle-catalog',
   demo: 'https://catalog.rgonz.dev',
 };

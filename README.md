@@ -8,7 +8,7 @@ Everything on the site comes from `src/app/core/content.ts`. Put images and your
 
 - your resume PDF: served by the "Download PDF" button (path in `PROFILE.resumePdf`)
 - `public/portrait.webp`: your photo (`PROFILE.portrait`); keep it 4:5 and about 800px wide
-- `public/projects/<name>.png`: set `cover: '/projects/<name>.png'` on a project
+- `public/projects/<name>.webp`: set `cover: '/projects/<name>.webp'` on a project (and `coverDark` for a dark-theme version)
 
 Update the `<title>` and meta description in `src/index.html` too.
 
