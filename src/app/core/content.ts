@@ -116,18 +116,20 @@ export const SKILLS: SkillGroup[] = [
   },
 ];
 
-// Newest first. The first project is shown full-width as the featured one.
-export const PROJECTS: Project[] = [
-  {
-    title: 'Configuration Rule Engine',
-    year: '2026',
-    role: 'Full-stack',
-    summary:
-      'Designed a Spring Boot REST API where Spring AI drafts rules from plain English and a deterministic Java checker blocks contradictions before apply; capped LLM spend with rate limits enforced atomically in PostgreSQL. Made concurrent edits and retries safe with row locks, optimistic versioning, and idempotent apply receipts; secured guest sessions with Spring Security, Spring Session JDBC, and CSRF, proven by 48 Testcontainers tests.',
-    stack: ['Java', 'Spring Boot', 'Spring AI', 'Angular', 'PostgreSQL'],
-    repo: 'https://github.com/rgonzal92/configuration-rule-engine',
-    demo: 'https://cre.rgonz.dev',
-  },
+// Shown full-width ahead of the others.
+export const FEATURED_PROJECT: Project = {
+  title: 'Configuration Rule Engine',
+  year: '2026',
+  role: 'Full-stack',
+  summary:
+    'Designed a Spring Boot REST API where Spring AI drafts rules from plain English and a deterministic Java checker blocks contradictions before apply; capped LLM spend with rate limits enforced atomically in PostgreSQL. Made concurrent edits and retries safe with row locks, optimistic versioning, and idempotent apply receipts; secured guest sessions with Spring Security, Spring Session JDBC, and CSRF, proven by 48 Testcontainers tests.',
+  stack: ['Java', 'Spring Boot', 'Spring AI', 'Angular', 'PostgreSQL'],
+  repo: 'https://github.com/rgonzal92/configuration-rule-engine',
+  demo: 'https://cre.rgonz.dev',
+};
+
+// Any order: they're shown newest first, and projects from the same year keep the order written here.
+export const OTHER_PROJECTS: Project[] = [
   {
     title: 'PagePulse',
     year: '2026',
@@ -138,7 +140,15 @@ export const PROJECTS: Project[] = [
     repo: 'https://github.com/rgonzal92/onboarding-experiments',
     demo: 'https://pagepulse.rgonz.dev',
   },
-];
+].sort((a, b) => Number(b.year) - Number(a.year));
+
+export const PROJECT_COUNT = 1 + OTHER_PROJECTS.length;
+
+const projectYears = [FEATURED_PROJECT, ...OTHER_PROJECTS].map((p) => Number(p.year));
+/** "2024–2026", or a single year when every project shares one. */
+export const PROJECT_YEARS = [
+  ...new Set([Math.min(...projectYears), Math.max(...projectYears)]),
+].join('–');
 
 export const RESUME = {
   summary:

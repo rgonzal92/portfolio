@@ -7,7 +7,14 @@ import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DividerModule } from 'primeng/divider';
 import { TagModule } from 'primeng/tag';
-import { PROFILE, PROJECTS, SKILLS } from '../../core/content';
+import {
+  FEATURED_PROJECT,
+  OTHER_PROJECTS,
+  PROFILE,
+  PROJECT_COUNT,
+  PROJECT_YEARS,
+  SKILLS,
+} from '../../core/content';
 import { Drawers } from '../../core/layout/drawers';
 import { ProjectCard } from './project-card';
 
@@ -37,13 +44,8 @@ export class Home {
   protected readonly firstName = PROFILE.name.split(' ')[0];
   protected readonly lastName = PROFILE.name.split(' ').slice(1).join(' ');
   protected readonly skills = SKILLS;
-  protected readonly featured = PROJECTS[0];
-  protected readonly rest = PROJECTS.slice(1);
-  protected readonly projectCount = String(PROJECTS.length).padStart(2, '0');
-  protected readonly yearRange = yearRange(PROJECTS);
-}
-
-/** "2024–2026" for projects listed newest first, or a single year when they all share one. */
-export function yearRange(projects: { year: string }[]): string {
-  return [...new Set([projects.at(-1)?.year, projects[0]?.year])].join('–');
+  protected readonly featured = FEATURED_PROJECT;
+  protected readonly rest = OTHER_PROJECTS;
+  protected readonly projectCount = String(PROJECT_COUNT).padStart(2, '0');
+  protected readonly projectYears = PROJECT_YEARS;
 }

@@ -39,7 +39,7 @@
   <p-divider class="m-0" />
   <div class="mt-6 flex flex-wrap justify-between gap-6">
     <p class="eyebrow">Selected projects</p>
-    <p class="eyebrow">{{ projectCount }} projects · {{ yearRange }}</p>
+    <p class="eyebrow">{{ projectCount }} projects · {{ projectYears }}</p>
   </div>
   <h2
     pAnimateOnScroll
@@ -51,17 +51,15 @@
     Things I've built.
   </h2>
 
-  @if (featured) {
-    <app-project-card
-      pAnimateOnScroll
-      [enterClass]="fadeIn"
-      threshold="0.1"
-      once
-      class="mt-12 md:mt-16"
-      [project]="featured"
-      [featured]="true"
-    />
-  }
+  <app-project-card
+    pAnimateOnScroll
+    [enterClass]="fadeIn"
+    threshold="0.1"
+    once
+    class="mt-12 md:mt-16"
+    [project]="featured"
+    [featured]="true"
+  />
   <div class="mt-14 grid gap-14 md:grid-cols-2 md:gap-10">
     @for (p of rest; track p.title; let last = $last, count = $count) {
       <!-- A last card that would sit alone in its row spans the full width instead. -->
