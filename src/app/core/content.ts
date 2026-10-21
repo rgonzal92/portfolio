@@ -48,12 +48,14 @@ export const PROFILE = {
   location: 'Austin, TX',
   email: 'richard@rgonz.dev',
   availability: 'Open to full-stack & backend roles',
-  lede: 'Software engineer with 3+ years at General Motors building Java, Spring Boot, Angular, and PostgreSQL applications, now building and deploying AI-integrated applications on AWS.',
+  // Also the description in src/index.html; keep the two in step.
+  lede: 'Full-stack software engineer who builds software with the people it serves: 3+ years at General Motors on tools ~300 vehicle program analysts use, and solo projects since 2026.',
   headline: "Hi, I'm Richard.",
   about: [
-    'Software engineer who designs and develops applications with Java, Spring Boot, Angular, and PostgreSQL, working directly with business users to turn requirements into features, optimize performance, and improve software quality.',
-    'For 3+ years at General Motors, I built and maintained internal applications that configure vehicle features for ~300 business users across 40+ vehicle programs. I gathered requirements directly from business stakeholders, demoed progress to them twice a week, and took features from request to production: cutting vehicle-catalog load times from ~20s to 2s, migrating an app to Kubernetes ahead of a deadline carrying a $1M+ penalty, and raising JUnit coverage from ~20% to 90% across seven microservices.',
-    'I also build and deploy AI-integrated applications on AWS on my own, using Terraform and CI/CD. My latest, Vehicle Catalog, adds approval workflows, versioning, and AI-assisted rule drafting with validated output and a $1/day spending limit.',
+    "I'm a full-stack software engineer who builds software with the people it serves.",
+    'For 3+ years at General Motors, I worked on the internal tools ~300 vehicle program analysts use to plan the features and options of 40+ vehicle programs. I met with those analysts twice a week, turned their requests into features, and went after whatever slowed them down. One slow database query made catalogs take 20 seconds to open (2 minutes for trucks); after I tuned it, they opened in 2, giving analysts back an estimated 1,000+ hours a year. Another feature halved their manual data entry.',
+    "I love solving hard, complex problems, and the best part is seeing people have a great experience with something I built. I'm always looking for ways to make an app faster or easier to use, and quality matters to me: I added our app's first frontend tests and raised backend test coverage from about 20% to 90%.",
+    "Since 2026, I've been building full-stack projects on my own, from the user interface to the AWS hosting. The latest, Vehicle Catalog, is live: a spreadsheet-style catalog editor with a manager's approval, version history, and AI that proposes rules for a person to sign off.",
   ],
   currently: [
     'Based in Austin, TX',
@@ -99,6 +101,7 @@ export const SKILLS: SkillGroup[] = [
       'CloudFront',
       'SQS',
       'Cognito',
+      'ECR',
       'IAM',
       'Terraform',
       'Docker',
@@ -130,7 +133,7 @@ export const FEATURED_PROJECT: Project = {
   year: '2026',
   role: 'Full-stack',
   summary:
-    'Solo-built an AWS-hosted catalog management platform with a 48,000-cell autosaving grid, rule validation, approvals, versioning, and three-way merge, cutting the largest save from 517 ms to 57 ms. Spring AI drafts rules, analyzes changes with tool calling, and searches documents with pgvector RAG behind Java-side output validation and an atomic $1/day spending limit; Terraform and GitHub Actions deploy it across EC2, CloudFront, S3, Cognito, SQS, and ECR with keyless OIDC and health-check rollback.',
+    "A solo, from-scratch vehicle catalog app that defines each vehicle's features, live as a public demo: edit a catalog like a spreadsheet, submit changes for approval, track every version, and have AI propose rules. 24 design records and 1,100+ tests on GitHub.",
   stack: ['Java', 'Spring Boot', 'Spring AI', 'Angular', 'PostgreSQL', 'Redis', 'AWS', 'Terraform'],
   cover: '/projects/vehicle-catalog.webp',
   coverDark: '/projects/vehicle-catalog-dark.webp',
@@ -152,7 +155,7 @@ export const PROJECT_YEARS = [
 
 export const RESUME = {
   summary:
-    'Software engineer with 3+ years of experience designing and developing applications using Java, Spring Boot, Angular, and PostgreSQL. Collaborates directly with business users to translate requirements into features, optimize performance, and improve software quality. Independently builds and deploys AI-integrated applications on AWS using Terraform and CI/CD.',
+    'Full-stack software engineer who builds software with the people it serves. Spent 3+ years at General Motors meeting twice a week with vehicle program analysts and turning their pain points into features, like a 20-second wait cut to 2. In 2026, independently delivered a complete AI-assisted web app, from the user interface to the AWS hosting.',
   experience: [
     {
       company: 'General Motors',
@@ -161,13 +164,14 @@ export const RESUME = {
       start: 'Jan 2023',
       end: 'May 2026',
       summary:
-        'Developed and maintained vehicle-configuration applications serving ~300 business users across 40+ vehicle programs, along with a supplier-warranty claims platform.',
+        'One of 5 developers on internal tools ~300 GM vehicle program analysts use to plan the features and options of 40+ programs.',
+      // The resume's bullets without their tool lists, which the stack chips show.
       highlights: [
-        'Engineered an automated vehicle-option rule management feature using Angular, Spring Boot, and PostgreSQL, lowering manual updates by 50% and preventing invalid data from reaching downstream systems.',
-        'Optimized PostgreSQL query performance using JMeter and EXPLAIN to identify and fix an unbounded subquery, cutting vehicle-catalog load times from ~20s to 2s (truck catalogs from ~2 min to 20s) across 1,000+ catalogs.',
-        'Migrated a vehicle-program application from Pivotal Cloud Foundry to on-premises Kubernetes ahead of a deadline carrying $1M+ in penalties, building deployment manifests and a CI/CD pipeline reused by three other teams.',
-        'Modernized a security-flagged vehicle-configuration application by independently upgrading Angular 15 to 18 and Spring Boot 2.7 to 3.4, resolving PrimeNG and Spring Security compatibility issues to restore security support.',
-        "Automated regression testing by introducing the frontend's first Jest and Playwright suites (0% to 50% coverage) and increasing JUnit coverage from ~20% to 90% across seven microservices, shifting defect detection from UAT into CI.",
+        'Slashed vehicle catalog load times 90% (~20 s to 2 s; trucks ~2 min to 20 s) by tuning one slow database query, sparing analysts an estimated 1,000+ hours of waiting per year.',
+        "Halved analysts' manual data entry with a feature that mirrors each paired vehicle-option rule, keeping mismatched rules out of about a dozen downstream GM systems.",
+        "Migrated a vehicle-planning app onto GM's in-house hosting platform ahead of a deadline carrying $1M+ in penalties; three other teams then adopted the deployment setup and release pipeline created for it.",
+        'Closed a must-fix security flag on the planning tool ~300 analysts rely on, single-handedly modernizing its outdated core frameworks and repairing everything the upgrade broke (Angular 15 to 18, Spring Boot 2.7 to 3.4).',
+        "Hardened every release with automated tests that block a build when a core workflow fails: the frontend's first tests (0% to 50% coverage) and backend coverage from ~20% to 90% across seven services.",
       ],
       stack: [
         'Java',
@@ -175,7 +179,9 @@ export const RESUME = {
         'Angular',
         'PrimeNG',
         'PostgreSQL',
+        'JMeter',
         'Kubernetes',
+        'CI/CD',
         'Jest',
         'Playwright',
         'JUnit',
